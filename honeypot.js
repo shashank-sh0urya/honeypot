@@ -11,6 +11,7 @@ app.use(cors()); // Enable CORS for all requests
 // Serve Honeypot SDK
 app.get('/honeypot.js', (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
     res.send(`
         (function() {
             function detectAttack(formData) {
