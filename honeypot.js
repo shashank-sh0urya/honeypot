@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // CORS FIX: Allow Kushvith site + EC2 server
-const allowedOrigins = ['https://kushvith.great-site.net', 'http://3.7.71.39'];
+const allowedOrigins = ['https://kushvith.great-site.net', 'http://localhost:3000', 'http://3.7.71.39'];
 app.use(cors({
     origin: allowedOrigins,
     methods: ['GET', 'POST'],
