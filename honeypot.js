@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // CORS FIX: Allow Kushvith site + EC2 server
-const allowedOrigins = ['https://kushvith.great-site.net', 'http://localhost:3000', 'http://3.7.71.39'];
+const allowedOrigins = ['https://kushvith.great-site.net', 'http://localhost:3000', 'http://3.7.71.39', '*'];
 app.use(cors({
     origin: allowedOrigins,
     methods: ['GET', 'POST'],
@@ -41,13 +41,13 @@ app.get('/honeypot.js', (req, res) => {
                 formData.forEach((value, key) => formObject[key] = value);
                 
                 if (detectAttack(formObject)) {
-                    fetch("http://3.7.71.39:3001/track", { // Use EC2 IP
+                    fetch("https://3.7.71.39/track", { // Use EC2 IP
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ formObject, userAgent: navigator.userAgent })
                     })
                     .then(() => {
-                        window.location.href = "http://3.7.71.39:3001/admin"; // Redirect to EC2 honeypot
+                        window.location.href = "https://3.7.71.39/admin"; // Redirect to EC2 honeypot
                     })
                     .catch(err => console.error("Fetch failed:", err));
 
