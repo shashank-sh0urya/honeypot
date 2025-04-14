@@ -7,7 +7,7 @@ const PORT = 3001;
 // Allow all origins (open for PoC testing)
 app.use(cors({
   origin: '*',
-  methods: ['GET'],
+  methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type']
 }));
 
