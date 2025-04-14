@@ -86,7 +86,7 @@
 // });
 
 
-  alert("XSS Executed Successfully!");
+  console.log("XSS Executed Successfully!");
   document.body.innerHTML += `
     <div style="position:fixed; top:10px; left:10px; background:red; color:white; padding:10px; font-size:20px; z-index:9999;">
       🔥 XSS Confirmed on trouw.nl 🔥
