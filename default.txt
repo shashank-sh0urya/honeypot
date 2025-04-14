@@ -1,0 +1,33 @@
+# Redirect all HTTP traffic to HTTPS
+server {
+    listen 80;
+    server_name 3.7.71.39;  # Replace with your Public IP
+
+    return 301 https://$host$request_uri;
+}
+
+# Main HTTPS server block
+server {
+    listen 443 ssl;
+    server_name 3.7.71.39;
+
+    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+    ssl_dhparam /etc/nginx/dhparam.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    location / {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
