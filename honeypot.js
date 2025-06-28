@@ -27,7 +27,21 @@ app.get('/honeypot.js', (req, res) => {
                     /\\b(UNION|SELECT|INSERT|DELETE|UPDATE|DROP|TRUNCATE|ALTER|EXEC|FROM|WHERE|TABLE)\\b/i,
                     /\\b(OR|AND)\\b.*[=<>]/i, 
                     /('|")/, 
-                    /\\b(script|alert|<|>)\\b/i 
+                    /\\b(script|alert|<|>)\\b/i,
+
+                    // XSS
+            /<script.*?>.*?<\/script>/i,
+            /\b(onerror|onload|onclick|alert|document\.cookie)\b/i,
+
+            // Command Injection
+            /[;&|]{1,2}/,
+            /\b(cat|ls|whoami|wget|curl|nc|bash|sh)\b/i,
+
+            // Local File Inclusion
+            /\.\.\/|etc\/passwd|boot\.ini/i,
+
+            // SSRF
+            /(http|https):\/\/(127\.0\.0\.1|localhost|169\.254\.169\.254|0\.0\.0\.0)/i
                 ];
                 
                 return Object.values(formData).some(value => 
